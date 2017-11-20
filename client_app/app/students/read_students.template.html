@@ -1,0 +1,56 @@
+<div layout="row" ng-controller="studentsController" ng-init="getStudents()" ng-cloak>
+    <div flex="5"></div>
+
+    <div flex="90" class='m-20px-0'>
+
+
+        <!-- page title & 'create student' button -->
+        <md-toolbar class="md-hue-2">
+            <div class="md-toolbar-tools">
+                <!-- page title -->
+                <div flex md-truncate>
+                    <h3 class="md-headline">סטודנטים</h3>
+                </div>
+
+                <!-- button for creating student -->
+                <md-button class="md-raised" ng-click="showCreateStudentForm()">הוספת סטודנט</md-button>
+            </div>
+        </md-toolbar>
+
+        <!-- 'search' bar will be here -->
+
+        <!-- students data table -->
+        <md-content flex>
+            <md-table-container>
+                <table md-table ng-model="selected" md-progress="promise">
+                    <thead md-head md-order="query.order" md-on-reorder="getStudents">
+                        <tr md-row>
+                            <th md-column md-order-by="first_name">שם פרטי</th>
+                            <th md-column md-order-by="last_name">שם משפחה</th>
+                            <th md-column md-numeric md-order-by="id*1">תעודת זהות</th>
+                            <th md-column md-order-by="city_name">עיר</th>
+                            <th md-column md-order-by="address">כתובת בית</th>
+                            <th md-column>פעולות</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row md-select="students" md-select-id="students" md-auto-select ng-repeat="student in students | filter: filter.search | orderBy: query.order">
+                            <td md-cell>{{student.first_name}}</td>
+                            <td md-cell>{{student.last_name}}</td>
+                            <td md-cell>{{student.id}}</td>
+                            <td md-cell>{{student.city_name}}</td>
+                            <td md-cell>{{student.address}}</td>
+                            <td md-cell> | </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+
+
+        </md-content>
+    </div>
+
+    <div flex="5"></div>
+</div>
+<!-- end row -->

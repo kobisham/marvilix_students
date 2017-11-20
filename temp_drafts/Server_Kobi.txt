@@ -1,0 +1,9 @@
+FTP Server:                                dilmol.com (port 21)
+FTP Username:                              kobi@marvilix.com
+FTP Password:                              oVLL2QlaIv
+Web Access:                                http://tests.marvilix.com/kobi
+
+phpMyAdmin
+Database Username:                         tests_kobi
+Database Password:                         1GMqa7aY
+Database Web Access:                       http://www.dilmol.co.il/phpmyadmin

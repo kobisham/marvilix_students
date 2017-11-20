@@ -1,0 +1,50 @@
+<md-dialog>
+    <form name="myForm" ng-cloak novalidate ng-submit="myForm.$valid && createFormSubmit()">
+
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>הוספת סטודנט</h2>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-input-container class="md-block">
+                    <label>מספר ת.ז</label>
+                    <input type="number" ng-required="true" name="id" id="id" ng-model="id" 
+                    md-no-float placeholder="כולל ספרת בקורת, ללא מקף">
+                    <span class="error" ng-show="myForm.id.$touched && !isValidId()">מספר תעודת הזהות אינו תקין</span>
+                
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>שם פרטי</label>
+                    <input ng-required="true" ng-model="first_name">
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>שם משפחה</label>
+                    <input ng-required="true" ng-model="last_name">
+                </md-input-container>
+
+                <md-input-container  md-is-error="myForm.city.$invalid && (myForm.$submitted || myForm.myselect.$dirty)">
+                    <md-select name="city" id="city" placeholder="עיר" ng-model="city" ng-required="true">
+                      <md-option ng-repeat="c in cities" ng-value="c.id">{{c.name}}</md-option>
+                    </md-select>
+                  </md-input-container>
+
+
+                <md-input-container class="md-block">
+                    <label>כתובת</label>
+                    <input ng-required="true" ng-model="address">
+                </md-input-container>
+
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-raised">ביטול</md-button>
+            <md-button type="submit" ng-disabled="myForm.$invalid"  class="md-primary md-raised">הוספה</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
