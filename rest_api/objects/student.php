@@ -130,11 +130,11 @@ class Student
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
     
        // set values to object properties
-        $this->first_name = $row['first_name'];
-        $this->last_name = $row['last_name'];
+        $this->first_name = htmlspecialchars_decode($row['first_name']);
+        $this->last_name = htmlspecialchars_decode($row['last_name']);
         $this->city_id = $row['city_id'];
-        $this->city_name = $row['city_name'];
-        $this->address = $row['address'];
+        $this->city_name = htmlspecialchars_decode($row['city_name']);
+        $this->address = htmlspecialchars_decode($row['address']);
         $this->deleted = $row['deleted'];
         $this->created = $row['created'];
 

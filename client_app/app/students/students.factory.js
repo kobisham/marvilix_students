@@ -29,7 +29,7 @@ app.factory("studentsFactory", function ($http) {
                 'last_name': $scope.last_name,
                 'address': $scope.address,
                 'deleted': 0,
-                'city_id': 1
+                'city_id': $scope.city
             },
             url: 'http://192.168.1.100/marvilix_api/student/create.php'
         });
