@@ -5,9 +5,10 @@ app.controller('studentsController', function ($scope, $mdDialog, $mdToast, stud
 
     $scope.query = {
         order: 'first_name',
-        limit: 100,
-        page: 1
+        limit: 100
     };
+
+
 
     // get students
     $scope.getStudents = function () {
@@ -152,5 +153,51 @@ app.controller('studentsController', function ($scope, $mdDialog, $mdToast, stud
         else
             return false;
     };
+
+    // cofirm student deletion
+    $scope.confirmDeleteStudent = function (event, id) {
+
+        // set id of record to delete
+        $scope.id = id;
+
+        // dialog settings
+        var confirm = $mdDialog.confirm()
+            .title('האם אתה בטוח שברצונך למחוק?')
+            .textContent('שים לב. לא ניתן לשחזר את הסטודנט לאחר המחיקה')
+            .targetEvent(event)
+            .ok('כן')
+            .cancel('לא');
+
+        // show dialog
+        $mdDialog.show(confirm).then(
+            // 'Yes' button
+            function () {
+                // if user clicked 'Yes', delete student record
+                $scope.deleteStudent();
+            },
+
+            // 'No' button
+            function () {
+                $scope.showToast("פעולת המחיקה בוטלה.");
+            }
+        );
+    }
+
+    // delete student
+    $scope.deleteStudent = function () {
+        console.log('delete student called');
+        studentsFactory.deleteStudent($scope.id).then(function successCallback(response) {
+
+            // tell the user student was deleted
+            $scope.showToast(response.data.message);
+
+            // refresh the list
+            $scope.getStudents();
+
+        }, function errorCallback(response) {
+            $scope.showToast("לא ניתן למחוק את הסטודנט.");
+        });
+
+    }
 
 });

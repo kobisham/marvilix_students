@@ -17,7 +17,16 @@
             </div>
         </md-toolbar>
 
-        <!-- 'search' bar will be here -->
+        <!-- search bar -->
+        <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
+            <div class="md-toolbar-tools">
+                <md-input-container>
+                    <label></label>
+                    <input md-no-float ng-model="search.first_name" placeholder="חיפוש לפי שם פרטי">
+                </md-input-container>
+            </div>
+
+        </md-toolbar>
 
         <!-- students data table -->
         <md-content flex>
@@ -34,13 +43,16 @@
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row md-select="students" md-select-id="students" md-auto-select ng-repeat="student in students | filter: filter.search | orderBy: query.order">
+                        <tr md-row md-select="students" md-select-id="students" md-auto-select ng-repeat="student in students |  filter: {first_name: search.first_name} | orderBy: query.order">
                             <td md-cell>{{student.first_name}}</td>
                             <td md-cell>{{student.last_name}}</td>
                             <td md-cell>{{student.id}}</td>
                             <td md-cell>{{student.city_name}}</td>
                             <td md-cell>{{student.address}}</td>
-                            <td md-cell> | </td>
+                            <td md-cell>
+                                    <md-button class="md-raised md-primary" ng-click="showUpdateStudentForm(student.id)">עריכה</md-button>  
+                                <md-button class="md-raised md-danger" ng-click="confirmDeleteStudent($event, student.id)">מחיקה</md-button>
+                                 </td>
 
                         </tr>
                     </tbody>

@@ -6,7 +6,7 @@ app.factory("studentsFactory", function ($http) {
     factory.readStudents = function () {
         return $http({
             method: 'GET',
-            url: 'http://89.139.216.166/marvilix_api/student/read.php'
+            url: 'http://192.168.1.100/marvilix_api/student/read.php'
         });
     };
 
@@ -14,13 +14,13 @@ app.factory("studentsFactory", function ($http) {
     factory.readCities = function () {
         return $http({
             method: 'GET',
-            url: 'http://89.139.216.166/marvilix_api/city/read.php'
+            url: 'http://192.168.1.100/marvilix_api/city/read.php'
         });
     };
 
     // create student
     factory.createStudent = function ($scope) {
-        
+
         return $http({
             method: 'POST',
             data: {
@@ -31,7 +31,18 @@ app.factory("studentsFactory", function ($http) {
                 'deleted': 0,
                 'city_id': 1
             },
-            url: 'http://89.139.216.166/marvilix_api/student/create.php'
+            url: 'http://192.168.1.100/marvilix_api/student/create.php'
+        });
+    };
+
+    // delete student
+    factory.deleteStudent = function (id) {
+        return $http({
+            method: 'POST',
+            data: {
+                'id': id
+            },
+            url: 'http://192.168.1.100/marvilix_api/student/delete.php'
         });
     };
 
