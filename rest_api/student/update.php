@@ -28,7 +28,7 @@ $student->first_name = $data->first_name;
 $student->last_name = $data->last_name;
 $student->city_id = $data->city_id;
 $student->address = $data->address;
-$student->deleted = $data->deleted;
+
  
 // update the student
 if($student->update()){

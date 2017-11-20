@@ -46,5 +46,30 @@ app.factory("studentsFactory", function ($http) {
         });
     };
 
+    // read one student
+    factory.readOneStudent = function (id) {
+        return $http({
+            method: 'GET',
+            url: 'http://192.168.1.100/marvilix_api/student/read_one.php?id=' + id
+        });
+    };
+
+    // update student
+    factory.updateStudent = function ($scope) {
+
+        return $http({
+            method: 'POST',
+            data: {
+                'id': $scope.id,
+                'first_name': $scope.first_name,
+                'last_name': $scope.last_name,
+                'city_id': $scope.city,
+                'address': $scope.address
+                
+            },
+            url: 'http://192.168.1.100/marvilix_api/student/update.php'
+        });
+    };
+
     return factory;
 });

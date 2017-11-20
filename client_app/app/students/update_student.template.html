@@ -1,0 +1,42 @@
+<md-dialog>
+    <form name="myUpdateForm" ng-cloak novalidate ng-submit="myUpdateForm.$valid">
+
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>עדכון סטודנט</h2>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-input-container class="md-block">
+                    <label>שם פרטי</label>
+                    <input ng-required="true" ng-model="first_name">
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>שם משפחה</label>
+                    <input ng-required="true" ng-model="last_name">
+                </md-input-container>
+
+                <md-input-container  md-is-error="myUpdateForm.city.$invalid && (myUpdateForm.$submitted || myUpdateForm.myselect.$dirty)">
+                    <md-select name="city" id="city" placeholder="עיר" ng-model="city" ng-required="true">
+                      <md-option ng-repeat="c in cities" ng-value="c.id">{{c.name}}</md-option>
+                    </md-select>
+                  </md-input-container>
+
+
+                <md-input-container class="md-block">
+                    <label>כתובת</label>
+                    <input ng-required="true" ng-model="address">
+                </md-input-container>
+
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" class="md-raised">ביטול</md-button>
+            <md-button  ng-disabled="myUpdateForm.$invalid" ng-click="updateStudent()" class="md-primary md-raised">עדכון</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

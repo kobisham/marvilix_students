@@ -8,8 +8,6 @@ app.controller('studentsController', function ($scope, $mdDialog, $mdToast, stud
         limit: 100
     };
 
-
-
     // get students
     $scope.getStudents = function () {
         // use students factory
@@ -20,17 +18,7 @@ app.controller('studentsController', function ($scope, $mdDialog, $mdToast, stud
         }).$promise;
     };
 
-    // read students
-    $scope.readStudents = function () {
 
-
-        studentsFactory.readStudents().then(function successCallback(response) {
-            $scope.students = response.data.records;
-        }, function errorCallback(response) {
-            $scope.showToast("לא ניתן להציג רשומות");
-        });
-
-    }
 
     // load cities
     $scope.cities = [];
@@ -68,7 +56,7 @@ app.controller('studentsController', function ($scope, $mdDialog, $mdToast, stud
             $scope.showToast(response.data.message);
 
             // refresh the list
-            $scope.readStudents();
+            $scope.getStudents();
 
             // close dialog
             $scope.cancel();
@@ -155,14 +143,14 @@ app.controller('studentsController', function ($scope, $mdDialog, $mdToast, stud
     };
 
     // cofirm student deletion
-    $scope.confirmDeleteStudent = function (event, id) {
+    $scope.confirmDeleteStudent = function (event, id, first_name, last_name) {
 
         // set id of record to delete
         $scope.id = id;
 
         // dialog settings
         var confirm = $mdDialog.confirm()
-            .title('האם אתה בטוח שברצונך למחוק?')
+            .title('האם אתה בטוח שברצונך למחוק את ' + first_name + ' ' + last_name + "?")
             .textContent('שים לב. לא ניתן לשחזר את הסטודנט לאחר המחיקה')
             .targetEvent(event)
             .ok('כן')
@@ -178,7 +166,7 @@ app.controller('studentsController', function ($scope, $mdDialog, $mdToast, stud
 
             // 'No' button
             function () {
-                $scope.showToast("פעולת המחיקה בוטלה.");
+                $scope.showToast("פעולת המחיקה בוטלה");
             }
         );
     }
@@ -195,8 +183,71 @@ app.controller('studentsController', function ($scope, $mdDialog, $mdToast, stud
             $scope.getStudents();
 
         }, function errorCallback(response) {
-            $scope.showToast("לא ניתן למחוק את הסטודנט.");
+            $scope.showToast("לא ניתן למחוק את הסטודנט");
         });
+
+    }
+
+    // retrieve record to fill out the form
+    $scope.showUpdateStudentForm = function (id) {
+
+        // get student to be edited
+        studentsFactory.readOneStudent(id).then(function successCallback(response) {
+
+            // put the values in form
+            $scope.id = id;
+            $scope.first_name = response.data.first_name;
+            $scope.last_name = response.data.last_name;
+            $scope.address = response.data.address;
+            $scope.city = response.data.city_id;
+
+
+            $mdDialog.show({
+                controller: DialogController,
+                templateUrl: './app/students/update_student.template.html',
+                parent: angular.element(document.body),
+                targetEvent: event,
+                clickOutsideToClose: false,
+                scope: $scope,
+                preserveScope: true,
+                fullscreen: true
+            }).then(
+                function () {},
+
+                // user clicked 'Cancel'
+                function () {
+                    // clear modal content
+                    $scope.clearStudentForm();
+                }
+            );
+
+        }, function errorCallback(response) {
+            $scope.showToast("לא ניתן להציג את הרשומה");
+        });
+
+    }
+
+    // update student record / save changes
+    $scope.updateStudent = function () {
+     
+        studentsFactory.updateStudent($scope).then(function successCallback(response) {
+
+                // tell the user student record was updated
+                $scope.showToast(response.data.message);
+
+                // refresh the student list
+                $scope.getStudents();
+
+                // close dialog
+                $scope.cancel();
+
+                // clear modal content
+                $scope.clearStudentForm();
+
+            },
+            function errorCallback(response) {
+                $scope.showToast("לא ניתן לעדכן את הרשומה");
+            });
 
     }
 

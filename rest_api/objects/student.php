@@ -151,8 +151,7 @@ class Student
                    first_name = :first_name,
                    last_name = :last_name,
                    city_id = :city_id,
-                   address = :address,
-                   deleted = :deleted
+                   address = :address
                  
                WHERE
                    id = :id";
@@ -166,7 +165,7 @@ class Student
         $this->last_name = htmlspecialchars(strip_tags($this->last_name));
         $this->city_id = htmlspecialchars(strip_tags($this->city_id));
         $this->address = htmlspecialchars(strip_tags($this->address));
-        $this->deleted = htmlspecialchars(strip_tags($this->deleted));
+
       
        // bind new values
         $stmt->bindParam(":id", $this->id);
@@ -174,7 +173,7 @@ class Student
         $stmt->bindParam(":last_name", $this->last_name);
         $stmt->bindParam(":city_id", $this->city_id);
         $stmt->bindParam(":address", $this->address);
-        $stmt->bindParam(":deleted", $this->deleted);
+
       
        // execute the query
         if ($stmt->execute()) {
@@ -185,36 +184,40 @@ class Student
     }
 
     // delete the student
-    function delete(){
+    function delete()
+    {
     
        // delete query
-       $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
-    
+        $query = "UPDATE
+                " . $this->table_name . "
+                SET
+                    deleted = 1
+                WHERE
+                    id = :id";
        // prepare query
-       $stmt = $this->conn->prepare($query);
+        $stmt = $this->conn->prepare($query);
     
        // sanitize
-       $this->id=htmlspecialchars(strip_tags($this->id));
+        $this->id = htmlspecialchars(strip_tags($this->id));
     
        // bind id of record to delete
-       $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(":id", $this->id);
     
-       // execute query
-       $stmt->execute();
-       $count = $stmt->rowCount();
-       if($count>0){
-           return true;
-       }
-    
-       return false;
-        
-   }
+       // execute the query
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
    // search student by first name
-    function search($keywords){
+    function search($keywords)
+    {
     
        // select all query
-       $query = "SELECT 
+        $query = "SELECT 
        S.id,
        S.first_name,
        S.last_name,
@@ -232,19 +235,19 @@ class Student
       ORDER BY created desc";
 
        // prepare query statement
-       $stmt = $this->conn->prepare($query);
+        $stmt = $this->conn->prepare($query);
     
        // sanitize
-       $keywords=htmlspecialchars(strip_tags($keywords));
-       $keywords = "%{$keywords}%";
+        $keywords = htmlspecialchars(strip_tags($keywords));
+        $keywords = "%{$keywords}%";
     
        // bind
-       $stmt->bindParam(1, $keywords);
+        $stmt->bindParam(1, $keywords);
     
        // execute query
-       $stmt->execute();
-    
-       return $stmt;
-   }
+        $stmt->execute();
+
+        return $stmt;
+    }
 
 }
