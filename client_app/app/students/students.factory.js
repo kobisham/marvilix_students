@@ -6,7 +6,7 @@ app.factory("studentsFactory", function ($http) {
     factory.readStudents = function () {
         return $http({
             method: 'GET',
-            url: 'http://192.168.1.100/marvilix_api/student/read.php'
+            url: 'http://tests.marvilix.com/kobi/rest_api/student/read.php'
         });
     };
 
@@ -14,7 +14,7 @@ app.factory("studentsFactory", function ($http) {
     factory.readCities = function () {
         return $http({
             method: 'GET',
-            url: 'http://192.168.1.100/marvilix_api/city/read.php'
+            url: 'http://tests.marvilix.com/kobi/rest_api/city/read.php'
         });
     };
 
@@ -31,7 +31,7 @@ app.factory("studentsFactory", function ($http) {
                 'deleted': 0,
                 'city_id': $scope.city
             },
-            url: 'http://192.168.1.100/marvilix_api/student/create.php'
+            url: 'http://tests.marvilix.com/kobi/rest_api/student/create.php'
         });
     };
 
@@ -42,7 +42,7 @@ app.factory("studentsFactory", function ($http) {
             data: {
                 'id': id
             },
-            url: 'http://192.168.1.100/marvilix_api/student/delete.php'
+            url: 'http://tests.marvilix.com/kobi/rest_api/student/delete.php'
         });
     };
 
@@ -50,7 +50,7 @@ app.factory("studentsFactory", function ($http) {
     factory.readOneStudent = function (id) {
         return $http({
             method: 'GET',
-            url: 'http://192.168.1.100/marvilix_api/student/read_one.php?id=' + id
+            url: 'http://tests.marvilix.com/kobi/rest_api/student/read_one.php?id=' + id
         });
     };
 
@@ -65,9 +65,9 @@ app.factory("studentsFactory", function ($http) {
                 'last_name': $scope.last_name,
                 'city_id': $scope.city,
                 'address': $scope.address
-                
+
             },
-            url: 'http://192.168.1.100/marvilix_api/student/update.php'
+            url: 'http://tests.marvilix.com/kobi/rest_api/student/update.php'
         });
     };
 

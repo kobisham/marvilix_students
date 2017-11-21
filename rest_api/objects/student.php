@@ -42,7 +42,7 @@ class Student
                    " . $this->table_name . " S
                    LEFT JOIN city C 
                    ON S.city_id = C.id 
-                   WHERE deleted=0
+                   WHERE deleted = 0
                    ORDER BY created desc";
     
        // prepare query statement

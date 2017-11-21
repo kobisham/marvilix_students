@@ -28,8 +28,6 @@ $student->city_id = $data->city_id;
 $student->address = $data->address;
 $student->deleted = $data->deleted;
 $student->created = date('Y-m-d H:i:s');
-
-
  
 // create the student
 if($student->create()){

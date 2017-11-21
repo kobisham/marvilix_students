@@ -19,7 +19,6 @@ app.controller('studentsController', function ($scope, $mdDialog, $mdToast, stud
     };
 
 
-
     // load cities
     $scope.cities = [];
 
@@ -151,7 +150,7 @@ app.controller('studentsController', function ($scope, $mdDialog, $mdToast, stud
         // dialog settings
         var confirm = $mdDialog.confirm()
             .title('האם אתה בטוח שברצונך למחוק את ' + first_name + ' ' + last_name + "?")
-            .textContent('שים לב. לא ניתן לשחזר את הסטודנט לאחר המחיקה')
+            .textContent('שים לב: לא ניתן לשחזר את הסטודנט לאחר המחיקה')
             .targetEvent(event)
             .ok('כן')
             .cancel('לא');
@@ -229,7 +228,7 @@ app.controller('studentsController', function ($scope, $mdDialog, $mdToast, stud
 
     // update student record / save changes
     $scope.updateStudent = function () {
-     
+
         studentsFactory.updateStudent($scope).then(function successCallback(response) {
 
                 // tell the user student record was updated
