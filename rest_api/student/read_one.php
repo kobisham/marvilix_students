@@ -33,7 +33,6 @@ $student_arr = array(
     "deleted" =>  $student->deleted,
     "created" =>  $student->created,
     
- 
 );
  
 // make it json format

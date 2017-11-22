@@ -4,9 +4,9 @@ class Database
  
     // database credentials
     private $host = "localhost";
-    private $db_name = "tests_kobi";
-    private $username = "tests_kobi";
-    private $password = "1GMqa7aY";
+    private $db_name = "students";
+    private $username = "root";
+    private $password = "1";
     public $conn;
  
     // get the database connection
