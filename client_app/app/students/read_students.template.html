@@ -50,7 +50,7 @@
                             <td md-cell>{{student.city_name}}</td>
                             <td md-cell>{{student.address}}</td>
                             <td md-cell>
-                                    <md-button class="md-raised md-primary" ng-click="showUpdateStudentForm(student.id)">עריכה</md-button>  
+                                    <md-button class="md-raised md-primary" ng-click="showUpdateStudentForm($event,student.id)">עריכה</md-button>  
                                 <md-button class="md-raised md-danger" ng-click="confirmDeleteStudent($event, student.id, student.first_name,student.last_name)">מחיקה</md-button>
                                  </td>
 

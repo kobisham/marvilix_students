@@ -188,7 +188,7 @@ app.controller('studentsController', function ($scope, $mdDialog, $mdToast, stud
     }
 
     // retrieve record to fill out the form
-    $scope.showUpdateStudentForm = function (id) {
+    $scope.showUpdateStudentForm = function (event,id) {
 
         // get student to be edited
         studentsFactory.readOneStudent(id).then(function successCallback(response) {
